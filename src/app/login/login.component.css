@@ -182,7 +182,7 @@ input:focus ~ .highlight {
 
 .button-text {
   color: #FFFFFF;
-  /*text-shadow: 1px 1px 0 rgba(0, 0, 0, .8);*/
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .2);
   display: table-cell;
   font-size: 20px;
   padding-left: 24px;
