@@ -6,8 +6,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
-
 
 interface User {
   uid: string;
@@ -16,7 +14,6 @@ interface User {
   displayName?: string;
   favoriteColor?: string;
 }
-
 
 @Injectable()
 export class AuthService {
@@ -38,24 +35,75 @@ export class AuthService {
       });
   }
 
-
+  ////// OAuth Methods /////
 
   googleLogin() {
     const provider = new firebase.auth.GoogleAuthProvider();
+    return this.oAuthLogin(provider); // .catch((error) => this.handleError(error));
+  }
+
+  facebookLogin() {
+    const provider = new firebase.auth.FacebookAuthProvider();
     return this.oAuthLogin(provider);
   }
 
-  private oAuthLogin(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-      .then((credential) => {
-        this.updateUserData(credential.user);
-      });
+  twitterLogin() {
+    const provider = new firebase.auth.TwitterAuthProvider();
+    return this.oAuthLogin(provider);
   }
 
+  private oAuthLogin(provider: firebase.auth.AuthProvider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then((credential) => {
+        // this.notify.update('Welcome to ASE BookingApp!!!', 'success');
+        return this.updateUserData(credential.user);
+      })
+      .catch((error) => this.handleError(error));
+  }
 
-  private updateUserData(user) {
-    // Sets user data to firestore on login
+  //// Email/Password Auth ////
 
+  emailSignUp(email: string, password: string) {
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        // this.notify.update('Welcome to ASE BookingApp!!!', 'success');
+        return this.updateUserData(user); // if using firestore
+      })
+      .catch((error) => this.handleError(error) );
+  }
+
+  emailLogin(email: string, password: string) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((user) => {
+        // this.notify.update('Welcome to ASE BookingApp!!!', 'success');
+        return this.updateUserData(user);
+      })
+      .catch((error) => this.handleError(error));
+  }
+
+  // Sends email allowing user to reset password
+  resetPassword(email: string) {
+    const fbAuth = firebase.auth();
+
+    return fbAuth.sendPasswordResetEmail(email)
+      // .then(() => this.notify.update('Password update email sent', 'info'))
+      .catch((error) => this.handleError(error));
+  }
+
+  signOut() {
+    this.afAuth.auth.signOut()
+      .then(() => this.router.navigate(['']))
+      .catch((error) => this.handleError(error));
+  }
+
+  // If error, console log and notify user
+  private handleError(error: Error) {
+    console.error(error);
+    // this.notify.update(error.message, 'error');
+  }
+
+  // Sets user data to firestore after successful login
+  private updateUserData(user: User) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
 
     const data: User = {
@@ -65,15 +113,7 @@ export class AuthService {
       photoURL: user.photoURL
     };
 
-    return userRef.set(data, { merge: true });
-
-  }
-
-
-  signOut() {
-    this.afAuth.auth.signOut().then(() => {
-      this.router.navigate(['']);
-    });
+    return userRef.set(data, {merge: true});
   }
 
 }

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../core/auth.service';
 import { Router } from '@angular/router';
+import {passBoolean} from 'protractor/built/util';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,6 @@ export class LoginComponent {
   facebookLogo = 'assets/images/facebook.svg';
   twitterLogo = 'assets/images/twitter.svg';
   emailLogo = 'assets/images/mail.svg';
-  backArrow = 'assets/images/back-arrow.svg';
 
   signInWithEmail = false;
 
@@ -23,10 +23,6 @@ export class LoginComponent {
     this.auth.googleLogin().then(() => {
       this.router.navigate(['user-profile']);
     });
-  }
-
-  emailLogin() {
-
   }
 
   emailLoginClick() {

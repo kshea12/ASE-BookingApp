@@ -2,49 +2,32 @@
 <h3>Kevin Shea | Scott Hind | Carlos Gil<br>Madelynn Steinbiss</h3>
 
 <div *ngIf="signInWithEmail; then emailForm else allOptions">
-<!-- template will replace this div -->
+  <!-- template will replace this div -->
 </div>
 
 <ng-template #allOptions>
-<div class="login">
-  <div class="login-box">
-    <button type="button" class="button button-google" (click)="googleLogin()">
-      <span class="button-img-wrapper"><img class="button-img" alt="" [src]="googleLogo"></span>
-      <span class="button-text button-text-google">Sign in with Google</span>
-    </button>
-    <button type="button" class="button button-facebook">
-      <span class="button-img-wrapper"><img class="button-img" alt="" [src]="facebookLogo"></span>
-      <span class="button-text">Sign in with Facebook</span>
-    </button>
-    <button type="button" class="button button-twitter">
-      <span class="button-img-wrapper"><img class="button-img" alt="" [src]="twitterLogo"></span>
-      <span class="button-text">Sign in with Twitter</span>
-    </button>
-    <button type="button" class="button buttonBlue" (click)="emailLoginClick()">
-      <span class="button-img-wrapper"><img class="button-img" alt="" [src]="emailLogo"></span>
-      <span class="button-text">Sign in with Email</span>
-    </button>
+  <div class="login">
+    <div class="login-box">
+      <button type="button" class="login-button button-google" (click)="googleLogin()">
+        <span class="button-img-wrapper"><img class="button-img" alt="" [src]="googleLogo"></span>
+        <span class="button-text button-text-google">Sign in with Google</span>
+      </button>
+      <button type="button" class="login-button button-facebook">
+        <span class="button-img-wrapper"><img class="button-img" alt="" [src]="facebookLogo"></span>
+        <span class="button-text">Sign in with Facebook</span>
+      </button>
+      <button type="button" class="login-button button-twitter">
+        <span class="button-img-wrapper"><img class="button-img" alt="" [src]="twitterLogo"></span>
+        <span class="button-text">Sign in with Twitter</span>
+      </button>
+      <button type="button" class="login-button buttonBlue" (click)="emailLoginClick()">
+        <span class="button-img-wrapper"><img class="button-img" alt="" [src]="emailLogo"></span>
+        <span class="button-text">Sign in with Email</span>
+      </button>
+    </div>
   </div>
-</div>
 </ng-template>
 
 <ng-template #emailForm>
-  <form class="login-box">
-    <div class="group">
-    <input type="email"><span class="highlight"></span><span class="bar"></span>
-    <label>Email</label>
-    </div>
-    <div class="group">
-      <input type="password"><span class="highlight"></span><span class="bar"></span>
-      <label>Password</label>
-    </div>
-    <button type="button" class="button buttonBlue" (click)="emailLogin()">
-      <span class="button-img-wrapper"><img class="button-img" alt="" [src]="emailLogo"></span>
-      <span class="button-text">Sign in with Email</span>
-    </button>
-    <button type="button" class="button button-back" (click)="emailLoginClick()">
-      <span class="button-img-wrapper"><img class="button-img" alt="" [src]="backArrow"></span>
-      <span class="button-text">Back to all options</span>
-    </button>
-  </form>
+    <email-password-form [loginUI]="this"></email-password-form>
 </ng-template>
