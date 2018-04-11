@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { FirebaseConfig } from '../firebase.config';
 import { CoreModule } from './core/core.module';
 
@@ -12,6 +13,7 @@ import { AppComponent } from './app.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { EmailPasswordFormComponent } from './login/email-password-form/email-password-form.component';
+import { TableSelectionComponent } from './table-selection/table-selection.component';
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { EmailPasswordFormComponent } from './login/email-password-form/email-pa
     AppComponent,
     UserProfileComponent,
     LoginComponent,
-    EmailPasswordFormComponent
+    EmailPasswordFormComponent,
+    TableSelectionComponent
   ],
   imports: [
     BrowserModule,
@@ -27,6 +30,7 @@ import { EmailPasswordFormComponent } from './login/email-password-form/email-pa
     ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(FirebaseConfig.firebase),
+    AngularFirestoreModule,                          
     CoreModule
   ],
   providers: [],

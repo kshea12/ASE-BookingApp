@@ -4,6 +4,7 @@ import { AuthGuard } from './core/auth.guard';
 
 import { LoginComponent } from './login/login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { TableSelectionComponent } from './table-selection/table-selection.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: '', pathMatch: 'full' },
@@ -14,14 +15,10 @@ const routes: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard]
   },
-  // {
-  //   path: '',
-  //   component: HomeComponent
-  // },
-  // {
-  //   path: 'about',
-  //   component: AboutComponent
-  // }
+  { path: 'table-selection',
+  component: TableSelectionComponent,
+},
+
 ];
 
 @NgModule({
