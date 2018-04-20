@@ -1,15 +1,14 @@
 import { TestBed, inject } from '@angular/core/testing';
-
-import { TableSelectionService } from './table-selection.service';
+import { RestaurantService } from './restaurant-service';
 
 describe('TableSelectionService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TableSelectionService]
+      providers: [RestaurantService]
     });
   });
 
-  it('should be created', inject([TableSelectionService], (service: TableSelectionService) => {
+  it('should be created', inject([RestaurantService], (service: RestaurantService) => {
     expect(service).toBeTruthy();
   }));
 });
