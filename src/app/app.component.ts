@@ -1,8 +1,10 @@
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs/Observable';
-import {AngularFireAuth} from 'angularfire2/auth';
-import {AngularFirestore} from 'angularfire2/firestore';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable'
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
+import { FormsModule } from '@angular/forms';
+import { KonvaModule } from 'ng2-konva'
 
 @Component({
   selector: 'app-root',
@@ -28,5 +30,6 @@ export class AppComponent {
     //     return { id, ...data };
     //   });
     // });
+
   }
 }
