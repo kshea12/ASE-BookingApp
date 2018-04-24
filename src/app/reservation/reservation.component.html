@@ -1,0 +1,14 @@
+<h1>it works</h1>
+
+<ul class="reservations">
+  <div *ngIf="reservations?.length > 0; else noReservations">
+    <ul *ngFor="let reservation of reservations" class="collection">
+      <span class="badge">{{reservation.id}}</span>
+    </ul>
+  </div>
+</ul>
+
+<ng-template #noReservations>
+  <hr>
+   <h5>No reservations to display</h5>
+</ng-template>
