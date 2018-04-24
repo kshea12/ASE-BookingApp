@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import {AuthService} from '../../core/auth.service';
+// import {AuthService} from '../../core/auth.service';
 
 type UserFields = 'email' | 'password';
 type FormErrors = { [u in UserFields]: string };
@@ -12,7 +12,7 @@ type FormErrors = { [u in UserFields]: string };
 })
 export class EmailPasswordFormComponent implements OnInit {
 
-  @Input() loginUI; // LoginComponent used for "Go Back" button
+  @Input() loginUI; // SignUpComponent used for "Go Back" button
   emailLogo = 'assets/images/mail.svg';
   backArrow = 'assets/images/back-arrow.svg';
 
@@ -39,7 +39,7 @@ export class EmailPasswordFormComponent implements OnInit {
     },
   };
 
-  constructor(private fb: FormBuilder, private auth: AuthService) {}
+  constructor(private fb: FormBuilder/*, private auth: AuthService*/) {}
 
   ngOnInit() {
     this.buildForm();
@@ -50,11 +50,11 @@ export class EmailPasswordFormComponent implements OnInit {
   }
 
   signup() {
-    this.auth.emailSignUp(this.userForm.value['email'], this.userForm.value['password']);
+    // this.auth.emailSignUp(this.userForm.value['email'], this.userForm.value['password']);
   }
 
   login() {
-    this.auth.emailLogin(this.userForm.value['email'], this.userForm.value['password']).catch( (error) => console.log('##########################################'));
+    // this.auth.emailLogin(this.userForm.value['email'], this.userForm.value['password']).catch( (error) => console.log('##########################################'));
   }
 
   goBack() {
@@ -62,8 +62,8 @@ export class EmailPasswordFormComponent implements OnInit {
   }
 
   resetPassword() {
-    this.auth.resetPassword(this.userForm.value['email'])
-      .then(() => this.passReset = true);
+    // this.auth.resetPassword(this.userForm.value['email'])
+    //   .then(() => this.passReset = true);
   }
 
   buildForm() {
