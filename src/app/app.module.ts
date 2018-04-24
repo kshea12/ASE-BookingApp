@@ -15,9 +15,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { EmailPasswordFormComponent } from './login/email-password-form/email-password-form.component';
 import { SearchRestaurantComponent } from './restaurant/search-restaurant/search-restaurant.component';
-import { ViewRestaurantComponent } from './restaurant/view-restaurant/view-restaurant.component';
 import { TableSelectorComponent } from './restaurant/table-selector/table-selector.component';
-import { ReservationEntryComponent } from './reservation/reservation-entry/reservation-entry.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -26,9 +25,8 @@ import { ReservationEntryComponent } from './reservation/reservation-entry/reser
     LoginComponent,
     EmailPasswordFormComponent,
     SearchRestaurantComponent,
-    ViewRestaurantComponent,
     TableSelectorComponent,
-    ReservationEntryComponent
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { SearchRestaurantComponent } from './restaurant/search-restaurant/search-restaurant.component';
 import { TableSelectorComponent } from './restaurant/table-selector/table-selector.component';
+import { ReservationComponent } from './reservation/reservation.component';
 
 const routes: Routes = [
   // { path: '**', redirectTo: '', pathMatch: 'full' },
@@ -26,6 +27,10 @@ const routes: Routes = [
     path: 'table-selection',
     component: TableSelectorComponent,
   },
+  {
+    path: 'reservation-entry',
+    component: ReservationComponent,
+  }
 ];
 
 @NgModule({
