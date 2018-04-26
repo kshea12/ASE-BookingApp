@@ -2,26 +2,27 @@ import { Injectable, Pipe, PipeTransform } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { Restaurant } from '../models/Restaurant'
-import { Reservation } from '../models/Reservation'
+import { Restaurant } from '../models/Restaurant';
+import { Reservation } from '../models/Reservation';
 
 @Injectable()
 export class RestaurantService {
 
   restaurantCollection: AngularFirestoreCollection<Restaurant>;
-  restaurants: Observable<Restaurant[]>;
   restaurantDoc: AngularFirestoreDocument<Restaurant>;
+  restaurants: Observable<Restaurant[]>;
+
+  selectedRestaurant: Restaurant;
 
   constructor(private afs: AngularFirestore) {
+    console.log('restaurant service constructor')
     this.getAllRestaurants();
   }
 
   // gets a collection of all restaurants from database and puts them into
   // an oberservable array of restaurants
   private getAllRestaurants() {
-    this.restaurantCollection = this.afs.collection('restaurants',
-      ref => ref.orderBy('name', 'asc'));
+    this.restaurantCollection = this.afs.collection('restaurants');
 
     this.restaurants = this.restaurantCollection.snapshotChanges().map(changes => {
       return changes.map(a => {
@@ -37,9 +38,13 @@ export class RestaurantService {
     return this.restaurants;
   }
 
-  // get a restaurant document by its name from the firebase restaurant collection
-  getRestaurantDobByName(restaurantName: string) {
-    this.restaurantDoc = this.afs.collection('restaurants').doc(restaurantName);
+  getSelectedRestaurant(){
+    return this.selectedRestaurant;
+  }
+
+  // get a restaurant document by its ID from the firebase restaurant collection
+  getRestaurantDocByID(restaurantID: string) {
+    this.restaurantDoc = this.afs.collection('restaurants').doc(restaurantID);
     return this.restaurantDoc;
   }
 

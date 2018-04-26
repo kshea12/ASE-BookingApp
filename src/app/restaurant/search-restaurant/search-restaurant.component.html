@@ -1,12 +1,11 @@
-<h2>
-  <strong>Restaurants</strong>
-</h2>
-
+<h2>Restaurants</h2>
 <ul class="restaurants">
   <div *ngIf="restaurants?.length > 0; else noRestaurants">
-    <ul *ngFor="let restaurant of restaurants" class="collection">
-      <span class="badge">{{restaurant.id}}</span>
-    </ul>
+    <li *ngFor="let restaurant of restaurants"
+      [class.selected]="restaurant === selectedRestaruant"
+      (click)="viewRestaurant(restaurant)">
+      <span class="badge">{{restaurant.name}}</span>
+    </li>
   </div>
 </ul>
 

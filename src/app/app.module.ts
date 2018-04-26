@@ -17,6 +17,7 @@ import { EmailPasswordFormComponent } from './login/email-password-form/email-pa
 import { SearchRestaurantComponent } from './restaurant/search-restaurant/search-restaurant.component';
 import { TableSelectorComponent } from './restaurant/table-selector/table-selector.component';
 import { ReservationComponent } from './reservation/reservation.component';
+import { RestaurantComponent } from './restaurant/restaurant.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ReservationComponent } from './reservation/reservation.component';
     EmailPasswordFormComponent,
     SearchRestaurantComponent,
     TableSelectorComponent,
-    ReservationComponent
+    ReservationComponent,
+    RestaurantComponent
   ],
   imports: [
     BrowserModule,
