@@ -12,7 +12,7 @@ export class RestaurantService {
   restaurantDoc: AngularFirestoreDocument<Restaurant>;
   restaurants: Observable<Restaurant[]>;
 
-  selectedRestaurant: Restaurant;
+  selectedRestaurant: Observable<Restaurant>;
 
   constructor(private afs: AngularFirestore) {
     console.log('restaurant service constructor');

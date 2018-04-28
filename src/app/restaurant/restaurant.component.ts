@@ -1,14 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { RestaurantService } from '../restaurant/restaurant-service';
+import { RestaurantService } from '../restaurant/restaurant.service';
 import { Restaurant } from '../models/Restaurant';
 
 @Component({
   selector: 'restaurant',
   templateUrl: './restaurant.component.html',
   styleUrls: ['./restaurant.component.css'],
-  providers: [RestaurantService]
-
 })
+
 export class RestaurantComponent implements OnInit {
 
   selectedRestaurant: Restaurant;
@@ -20,8 +19,8 @@ export class RestaurantComponent implements OnInit {
     console.log('ngOnItin ResstaurantComponent');
 
     // subscribe to selected restaurant
-    //this.restaurantService.getSelectedRestaurant().subscribe(restaurant => {
-    //  this.selectedRestaurant = restaurant;
-    //})
+    this.restaurantService.getSelectedRestaurant().subscribe(restaurant => {
+     this.selectedRestaurant = restaurant;
+    });
   }
 }
