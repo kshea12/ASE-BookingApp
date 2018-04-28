@@ -11,6 +11,7 @@ import { StaticModule } from './static';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { RestaurantModule } from '@app/restaurant/restaurant.module';
 
 
 
@@ -28,6 +29,7 @@ import { AppComponent } from './app.component';
     LoginModule,
     StaticModule,
     SettingsModule,
+    RestaurantModule,
 
     // app
     AppRoutingModule

@@ -1,0 +1,19 @@
+<div *ngIf="restaurants?.length > 0; then allRestaurants else noRestaurants">
+  <!-- template will replace this div -->
+</div>
+
+<ng-template #allRestaurants>
+<h2>Restaurants</h2>
+<ul class="restaurants" >
+    <li *ngFor="let restaurant of restaurants"
+      [class.selected]="restaurant === selectedRestaruant"
+      (click)="viewRestaurant(restaurant)">
+      <span class="badge">{{restaurant.name}}</span>
+    </li>
+</ul>
+</ng-template>
+
+<ng-template #noRestaurants>
+  <hr>
+  <h5>No restaurants to display</h5>
+</ng-template>
