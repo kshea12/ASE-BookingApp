@@ -5,14 +5,15 @@ import { NgModule } from '@angular/core';
 import { SharedModule } from '@app/shared';
 import { CoreModule } from '@app/core';
 
-import { LoginModule } from '@app/login/login.module';
-import { SettingsModule } from './settings';
-import { StaticModule } from './static';
+import { LoginModule } from '@app/login';
+import { RestaurantModule } from '@app/restaurant/restaurant.module';
+import { ReservationModule } from '@app/reservation/reservation.module';
+
+import { SettingsModule } from '@app/settings';
+import { StaticModule } from '@app/static';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { RestaurantModule } from '@app/restaurant/restaurant.module';
-
 
 
 @NgModule({
@@ -27,9 +28,10 @@ import { RestaurantModule } from '@app/restaurant/restaurant.module';
 
     // features
     LoginModule,
-    StaticModule,
-    SettingsModule,
     RestaurantModule,
+    ReservationModule,
+    SettingsModule,
+    StaticModule,
 
     // app
     AppRoutingModule

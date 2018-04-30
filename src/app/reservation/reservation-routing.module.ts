@@ -1,21 +1,20 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { ReservationComponent } from '@app/reservation/reservation.component';
 
 const routes: Routes = [
   {
-    path: 'sign-up',
-    component: SignUpComponent,
+    path: 'reservation',
+    component: ReservationComponent,
     data: {
-      title: 'Sign Up'
+      title: 'Reservation'
     }
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LoginRoutingModule {
+export class ReservationRoutingModule {
 }

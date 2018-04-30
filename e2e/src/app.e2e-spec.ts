@@ -1,6 +1,6 @@
 import { AngularNgrxMaterialStarterPage } from './app.po';
 
-describe('angular-ngrx-material-starter App', () => {
+describe('Booking App', () => {
   let page: AngularNgrxMaterialStarterPage;
 
   beforeEach(() => {
@@ -9,6 +9,6 @@ describe('angular-ngrx-material-starter App', () => {
 
   it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('ANGULAR NGRX MATERIAL STARTER');
+    expect(page.getParagraphText()).toEqual('BOOKING APP');
   });
 });

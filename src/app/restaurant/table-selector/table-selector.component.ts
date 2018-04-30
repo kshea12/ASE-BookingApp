@@ -92,9 +92,7 @@ export class TableSelectorComponent implements OnInit {
     stroke: 'black',
   });
 
-  constructor(
-    private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit() {
     setTimeout(() => {

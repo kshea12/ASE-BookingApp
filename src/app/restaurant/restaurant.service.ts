@@ -1,9 +1,7 @@
-import { Injectable, Pipe, PipeTransform } from '@angular/core';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Restaurant } from '../models/Restaurant';
-import { Reservation } from '../models/Reservation';
 
 @Injectable()
 export class RestaurantService {
@@ -38,7 +36,7 @@ export class RestaurantService {
     return this.restaurants;
   }
 
-  getSelectedRestaurant(){
+  getSelectedRestaurant() {
     return this.selectedRestaurant;
   }
 

@@ -1,0 +1,17 @@
+<div *ngIf="reservations?.length > 0; then allReservations else noReservations">
+  <!-- template will replace this div -->
+</div>
+
+<ng-template #allReservations>
+  <h2>Reservations</h2>
+  <ul class="reservations | async">
+    <li *ngFor="let reservation of reservations" class="collection">
+      <span>{{reservation.time}}</span>
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #noReservations>
+  <hr>
+  <h5>No reservations to display</h5>
+</ng-template>
