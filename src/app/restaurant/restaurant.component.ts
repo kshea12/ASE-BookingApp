@@ -1,26 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import { RestaurantService } from '../restaurant/restaurant.service';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+// import { RestaurantService } from '../services/restaurant.service';
+// import { ReservationService } from '../services/reservation.service';
 import { Restaurant } from '../models/Restaurant';
+import { RestaurantService } from '@app/restaurant/restaurant.service';
+import { ReservationService } from '@app/reservation/reservation.service';
+
 
 @Component({
   selector: 'restaurant',
   templateUrl: './restaurant.component.html',
   styleUrls: ['./restaurant.component.css']
 })
-
 export class RestaurantComponent implements OnInit {
 
-  selectedRestaurant: Restaurant;
+  restaurants: Restaurant[];
 
-  constructor(private restaurantService: RestaurantService) {}
+  constructor(private restaurantService: RestaurantService,
+              private reservationService: ReservationService,
+              private router: Router) {}
+
 
   ngOnInit() {
-    console.log('ngOnItin ResstaurantComponent');
+    // subscribe to all restaurants
+    this.restaurantService.getRestaurants().subscribe(restaurants => {
+      this.restaurants = restaurants;
+    });
+  }
 
-    // subscribe to selected restaurant
-    this.restaurantService.getSelectedRestaurant()
-      .subscribe(restaurant => {
-        this.selectedRestaurant = restaurant;
-      });
+  viewRestaurant(restaurant: Restaurant) {
+    console.log('calling retrieveReservationForRestaurant');
+    this.reservationService.retrieveReservationsForRestaurant(restaurant.id);
+
+    // re-route to restaurant component
+    this.router.navigate(['restaurant', restaurant.name]);
   }
 }

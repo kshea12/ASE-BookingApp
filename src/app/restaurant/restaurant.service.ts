@@ -10,10 +10,8 @@ export class RestaurantService {
   restaurantDoc: AngularFirestoreDocument<Restaurant>;
   restaurants: Observable<Restaurant[]>;
 
-  selectedRestaurant: Observable<Restaurant>;
-
   constructor(private afs: AngularFirestore) {
-    console.log('restaurant service constructor');
+    console.log('New instance of RestaurantService created');
     this.getAllRestaurants();
   }
 
@@ -30,14 +28,9 @@ export class RestaurantService {
       });
     });
   }
-
   // subscribable array of restaurants for observers
   getRestaurants() {
     return this.restaurants;
-  }
-
-  getSelectedRestaurant() {
-    return this.selectedRestaurant;
   }
 
   // get a restaurant document by its ID from the firebase restaurant collection
@@ -63,6 +56,3 @@ export class RestaurantService {
     this.restaurantDoc.update(restaurant);
   }
 }
-
-
-

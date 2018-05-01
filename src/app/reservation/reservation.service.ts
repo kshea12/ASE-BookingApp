@@ -10,33 +10,20 @@ export class ReservationService {
   reservations: Observable<Reservation[]>;
   reservationDoc: AngularFirestoreDocument<Reservation>;
 
-  testReservation: Reservation;
-
   constructor(private afs: AngularFirestore) {
-    console.log('in constructor of reservationservice');
-    // this.retrieveReservationsForRestaurant('367H6KcykbcwZKCdHolA');
+    console.log('New instance of Reservationservice created');
   }
 
   // a restaurant id is used to retrieve a collection of all resrvation for a restaurant and puts them into
   // an observable array of reservations
   retrieveReservationsForRestaurant(restaurantID: string) {
+    console.log('retrieveReservationsForRestaurant');
+
     console.log(restaurantID);
 
     this.reservationCollection = this.afs.collection('restaurants')
       .doc(restaurantID).collection('reservations');
 
-    // test
-    this.testReservation = {
-      date: '04/29/18',
-      partySize: 4,
-      tableNumber: 2,
-      time: '1100 '
-    };
-
-    // test
-    // this.afs.collection('restaurants').doc(restaurantID).collection('reservations').add(this.testReservation);
-
-    // this.reservationCollection = this.afs.collection('restaurants').doc('367H6KcykbcwZKCdHolA').collection('reservations');
     console.log('saving rerservationcollection');
 
     this.reservations = this.reservationCollection.snapshotChanges().map(changes => {
@@ -57,21 +44,19 @@ export class ReservationService {
   }
 
   // add a reservation document into thte firebase reservation collection for a restaurant
-  addReservation(reservation: Reservation) {
+  addReservation( reservation: Reservation) {
     // this.afs.collection('restaurants').doc(restaurantName).collection('reservations').add(reservation);
     this.reservationCollection.add(reservation);
   }
 
   // delete a reservation document from the firebase reservation collection for a restaurant
-  deleteReservation(reservation: Reservation) {
-    // this.reservationDoc = this.afs.doc('restaurants/${restaurantName}/reservations/${reservation.id}');
+  deleteReservation( reservation: Reservation) {
     this.reservationDoc = this.reservationCollection.doc(reservation.id);
     this.reservationDoc.delete();
   }
 
   // update a reservation document form the firebase reservation collection
-  updateReservation(reservation: Reservation) {
-    // this.reservationDoc = this.afs.doc('restaurants/${restaurantName}/reservations/${reservation.id}');
+  updateReservation( reservation: Reservation) {
     this.reservationDoc = this.reservationCollection.doc(reservation.id);
     this.reservationDoc.update(reservation);
   }

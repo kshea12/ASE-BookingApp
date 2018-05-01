@@ -4,12 +4,12 @@ import { ReservationComponent } from '@app/reservation/reservation.component';
 
 const routes: Routes = [
   {
-    path: 'reservation',
+    path: 'restaurant/:name',
     component: ReservationComponent,
     data: {
-      title: 'Reservation'
+      title: 'Restaurant Reservations'
     }
-  },
+  }
 ];
 
 @NgModule({
