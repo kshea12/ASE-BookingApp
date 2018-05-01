@@ -64,5 +64,6 @@ export class ReservationComponent implements OnInit {
     this.reservations = this.reservations.filter(reservation =>
       reservation.time >= requestedTime).filter(reservation =>
       reservation.time < anHourAfterRequestedTime.toString());
+
   }
 }

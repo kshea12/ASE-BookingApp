@@ -24,22 +24,22 @@ export class ReservationService {
 
     this.reservationCollection = this.afs.collection('restaurants')
       .doc(restaurantID).collection('reservations');
+  
+    // test
+   // this.testReservation = {
+   //   date: '04/29/18',
+   //   partySize: 4,
+   //   tableNumber: 2,
+   //   time:'1100 '
+  //  };
 
     // test
-    this.testReservation = {
-      date: '04/29/18',
-      partySize: 4,
-      tableNumber: 2,
-      time: '1100 '
-    };
-
-    // test
-    // this.afs.collection('restaurants').doc(restaurantID).collection('reservations').add(this.testReservation);
-
-    // this.reservationCollection = this.afs.collection('restaurants').doc('367H6KcykbcwZKCdHolA').collection('reservations');
+    //this.afs.collection('restaurants').doc(restaurantID).collection('reservations').add(this.testReservation);
+    
+    //this.reservationCollection = this.afs.collection('restaurants').doc('367H6KcykbcwZKCdHolA').collection('reservations');
     console.log('saving rerservationcollection');
 
-    this.reservations = this.reservationCollection.snapshotChanges().map(changes => {
+    this.reservations = this.reservationCollection. snapshotChanges().map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data() as Reservation;
         data.id = a.payload.doc.id;
@@ -70,8 +70,8 @@ export class ReservationService {
   }
 
   // update a reservation document form the firebase reservation collection
-  updateReservation(reservation: Reservation) {
-    // this.reservationDoc = this.afs.doc('restaurants/${restaurantName}/reservations/${reservation.id}');
+  updateReservation( reservation: Reservation) {
+   // this.reservationDoc = this.afs.doc('restaurants/${restaurantName}/reservations/${reservation.id}');
     this.reservationDoc = this.reservationCollection.doc(reservation.id);
     this.reservationDoc.update(reservation);
   }

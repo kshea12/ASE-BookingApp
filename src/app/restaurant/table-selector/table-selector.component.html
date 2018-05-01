@@ -1,18 +1,18 @@
-<!--<h2>{{ restaurant.name}} Details</h2>-->
+<h2>{{ restaurant.name}} Details</h2>
 <div class="floorplan">
-  <ko-stage [(config)]="floorplanStage">
+  <ko-stage [config]="floorplanStage">
     <ko-layer>
       <ko-circle [config]="table1" (click)="table1Click($event)"></ko-circle>
       <ko-circle [config]="table2" (click)="table2Click($event)"></ko-circle>
-      <!--<ko-circle [config]="table3" (click)="table3click($event)"></ko-circle>-->
-      <!--<ko-circle [config]="table4" (click)="table4click($event)"></ko-circle>-->
-      <!--<ko-circle [config]="table5" (click)="table5click($event)"></ko-circle>-->
-      <!--<ko-circle [config]="table6" (click)="table6click($event)"></ko-circle>-->
-      <!--<ko-circle [config]="table7" (click)="table7click($event)"></ko-circle>-->
-      <!--<ko-circle [config]="table8" (click)="table8click($event)"></ko-circle>-->
+      <ko-circle [config]="table3" (click)="table3click($event)"></ko-circle>
+      <ko-circle [config]="table4" (click)="table4click($event)"></ko-circle>
+      <ko-circle [config]="table5" (click)="table5click($event)"></ko-circle>
+      <ko-circle [config]="table6" (click)="table6click($event)"></ko-circle>
+      <ko-circle [config]="table7" (click)="table7click($event)"></ko-circle>
+      <ko-circle [config]="table8" (click)="table8click($event)"></ko-circle>
     </ko-layer>
   </ko-stage>
   <br>
-<!--</div>-->
+</div>
 
-<!--{{testString}}-->
+{{testString}}

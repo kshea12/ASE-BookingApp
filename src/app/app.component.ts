@@ -118,5 +118,6 @@ export class AppComponent implements OnInit, OnDestroy {
     // dialogConfig.autoFocus = true;
 
     this.dialog.open(SignInComponent, dialogConfig);
+
   }
 }

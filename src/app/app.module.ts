@@ -15,13 +15,11 @@ import { StaticModule } from '@app/static';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
 @NgModule({
   imports: [
     // angular
     BrowserAnimationsModule,
     BrowserModule,
-
     // core & shared
     CoreModule,
     SharedModule,
