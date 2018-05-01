@@ -1,41 +1,46 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-
-import { SharedModule } from '@app/shared';
-import { CoreModule } from '@app/core';
-
-import { LoginModule } from '@app/login';
-import { RestaurantModule } from '@app/restaurant/restaurant.module';
-import { ReservationModule } from '@app/reservation/reservation.module';
-
-import { SettingsModule } from '@app/settings';
-import { StaticModule } from '@app/static';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { FirebaseConfig } from '../firebase.config';
+import { CoreModule } from './core/core.module';
+import { KonvaModule } from 'ng2-konva'
+
 import { AppComponent } from './app.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { LoginComponent } from './login/login.component';
+import { EmailPasswordFormComponent } from './login/email-password-form/email-password-form.component';
+import { SearchRestaurantComponent } from './restaurant/search-restaurant/search-restaurant.component';
+import { TableSelectorComponent } from './restaurant/table-selector/table-selector.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { RestaurantComponent } from './restaurant/restaurant.component';
 
 @NgModule({
-  imports: [
-    // angular
-    BrowserAnimationsModule,
-    BrowserModule,
-    // core & shared
-    CoreModule,
-    SharedModule,
-
-    // features
-    LoginModule,
-    RestaurantModule,
-    ReservationModule,
-    SettingsModule,
-    StaticModule,
-
-    // app
-    AppRoutingModule
+  declarations: [
+    AppComponent,
+    UserProfileComponent,
+    LoginComponent,
+    EmailPasswordFormComponent,
+    SearchRestaurantComponent,
+    TableSelectorComponent,
+    ReservationComponent,
+    RestaurantComponent
   ],
-  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppRoutingModule,
+    AngularFireModule.initializeApp(FirebaseConfig.firebase),
+    AngularFirestoreModule,
+    KonvaModule,
+    CoreModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }

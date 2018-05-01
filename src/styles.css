@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+html {
+  font-family: Helvetica, monospace;
+  background: #eee;
+  -webkit-font-smoothing: antialiased;
+}
+
+.inner {
+  display: inline-block;
+}
+
+.outer {
+  width:100%;
+  text-align: center;
+}

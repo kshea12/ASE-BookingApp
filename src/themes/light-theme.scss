@@ -1,9 +1,0 @@
-$ba-light-primary: mat-palette($mat-grey, 200, 500, 300);
-$ba-light-accent: mat-palette($mat-brown, 200);
-$ba-light-warn: mat-palette($mat-deep-orange, 200);
-
-$ba-light-theme: mat-light-theme(
-  $ba-light-primary,
-  $ba-light-accent,
-  $ba-light-warn
-);
