@@ -48,6 +48,7 @@ export class TableSelectorComponent implements OnInit {
     height: 520
   });
 
+
   public table1 = Observable.of({
     x: Position.firstColumn,
     y: Position.firstRow,
@@ -55,6 +56,7 @@ export class TableSelectorComponent implements OnInit {
     fill: 'green',
     stroke: 'black',
   });
+
 
   public table2 = Observable.of({
     x: Position.firstColumn,
@@ -71,6 +73,7 @@ export class TableSelectorComponent implements OnInit {
     fill: 'green',
     stroke: 'black',
   });
+
 
   public table4 = Observable.of({
     x: Position.secondColumn,
@@ -95,6 +98,7 @@ export class TableSelectorComponent implements OnInit {
     fill: 'green',
     stroke: 'black',
   });
+
 
   public table7 = Observable.of({
     x: Position.thirdColumn,
