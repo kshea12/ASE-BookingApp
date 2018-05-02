@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { ANIMATE_ON_ROUTE_ENTER } from '../../core/index';
+import { Restaurant } from '@app/models/Restaurant';
+import { Observable } from 'rxjs/Observable';
+import { RestaurantService } from '@app/restaurant/restaurant.service';
+import { Router } from '@angular/router';
+import { TableService } from '@app/restaurant/table.service';
+import { ReservationService } from '@app/reservation/reservation.service';
 
 @Component({
   selector: 'ba-home',
@@ -10,7 +16,7 @@ import { ANIMATE_ON_ROUTE_ENTER } from '../../core/index';
 })
 export class HomeComponent implements OnInit {
   animateOnRouteEnter = ANIMATE_ON_ROUTE_ENTER;
-  reactiveForm;
+  reactiveForm: FormGroup;
 
   partySizes = [
     { value: '1', label: '1 person' },
@@ -70,19 +76,39 @@ export class HomeComponent implements OnInit {
   ];
   selectedTime = this.times[17].value;
 
-  constructor(private fb: FormBuilder) {
+  restaurants: Restaurant[];
+  selectedRestaurant: string;
 
+  constructor(private fb: FormBuilder,
+              private restaurantService: RestaurantService,
+              private router: Router) {}
+
+  ngOnInit() {
+    this.buildForm();
+    this.restaurantService.getRestaurants().subscribe((data) => {
+      this.restaurants = data;
+      this.restaurants.forEach(restaurant => {
+        console.log('restaurant:', restaurant.id);
+      });
+    });
+  }
+
+  buildForm() {
     this.reactiveForm = this.fb.group({
       'partySize': [this.selectedPartySize, Validators.required],
       'date': [this.selectedDate, Validators.required],
       'time': [this.selectedTime, Validators.required],
+      'restaurant': [this.selectedRestaurant, Validators.required]
     });
   }
 
-  ngOnInit() {}
-
-  findTable() {
-    console.log(this.selectedDate);
+  findTable(criteria) {
+    console.log(criteria.partySize);
+    console.log(criteria.date);
+    console.log(criteria.time);
+    console.log(criteria.restaurant);
+    this.restaurantService.setFilterCriteria(criteria.restaurant, criteria.partySize, criteria.date, criteria.time);
+    this.router.navigate(['restaurant']);
   }
 
 }

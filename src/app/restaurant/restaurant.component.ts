@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
-// import { RestaurantService } from '../services/restaurant.service';
-// import { ReservationService } from '../services/reservation.service';
-import { Restaurant } from '../models/Restaurant';
-import { RestaurantService } from '@app/restaurant/restaurant.service';
 import { ReservationService } from '@app/reservation/reservation.service';
+import { TableService } from '@app/restaurant/table.service';
+import { Table } from '@app/models/Table';
+import { Reservation } from '@app/models/Reservation';
+import { RestaurantService } from '@app/restaurant/restaurant.service';
 
 
 @Component({
@@ -15,25 +14,69 @@ import { ReservationService } from '@app/reservation/reservation.service';
 })
 export class RestaurantComponent implements OnInit {
 
-  restaurants: Restaurant[];
+  restaurantID: string;
+  partySize: string;
+  date: string;
+  time: string;
 
-  constructor(private restaurantService: RestaurantService,
+  tables: Table[];
+  reservations: Reservation[];
+
+  constructor(private tableService: TableService,
+              private restaurantService: RestaurantService,
               private reservationService: ReservationService,
-              private router: Router) {}
+              private router: Router) {
+
+    const criteria = this.restaurantService.getFilterCriteria();
+    this.restaurantID = criteria.restaurantID;
+    this.partySize = criteria.partySize;
+    this.date = criteria.date;
+    this.time = criteria.time;
+  }
 
 
   ngOnInit() {
-    // subscribe to all restaurants
-    this.restaurantService.getRestaurants().subscribe(restaurants => {
-      this.restaurants = restaurants;
+    this.tableService.getTables(this.restaurantID).subscribe(tables => {
+      this.tables = tables;
+      this.filterTablesBySize();
     });
+
+    this.reservationService.getReservations(this.restaurantID).subscribe(reservations => {
+      this.reservations = reservations;
+      this.filterReservations();
+      this.reservations.forEach(reservation => {
+        this.tables = this.tables.filter(table => table.id !== reservation.tableNumber);
+      });
+    });
+
   }
 
-  viewRestaurant(restaurant: Restaurant) {
-    console.log('calling retrieveReservationForRestaurant');
-    this.reservationService.retrieveReservationsForRestaurant(restaurant.id);
+  filterTablesBySize() {
+    this.tables = this.tables.filter(table =>
+      table.size >= this.partySize);
+  }
 
-    // re-route to restaurant component
-    this.router.navigate(['restaurant', restaurant.name]);
+  filterReservations() {
+    this.filterReservationByDate(this.date);
+    this.filterReservationsByTime(this.time);
+  }
+
+  filterReservationByDate(requestedDate: string) {
+    this.reservations = this.reservations.filter(reservation =>
+      reservation.date === requestedDate);
+  }
+
+  // filter out from time requested to an hour later
+  filterReservationsByTime(requestedTime: string) {
+    const anHourAfterRequestedTime = (parseInt((requestedTime + 100), 10));
+
+    this.reservations = this.reservations.filter(reservation =>
+      reservation.time >= requestedTime).filter(reservation =>
+      reservation.time < anHourAfterRequestedTime.toString());
+  }
+
+  reserveTable(table: Table) {
+    this.reservationService.setReservationDetails(this.restaurantID, this.partySize, this.date, this.time, table.id);
+    this.router.navigate(['reservation']);
   }
 }

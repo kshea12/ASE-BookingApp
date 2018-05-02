@@ -10,17 +10,23 @@ export class RestaurantService {
   restaurantDoc: AngularFirestoreDocument<Restaurant>;
   restaurants: Observable<Restaurant[]>;
 
+  restaurantID: string;
+  partySize: string;
+  date: string;
+  time: string;
+
   constructor(private afs: AngularFirestore) {
     console.log('New instance of RestaurantService created');
-    this.getAllRestaurants();
+    // this.getRestaurants();
   }
 
   // gets a collection of all restaurants from database and puts them into
   // an oberservable array of restaurants
-  private getAllRestaurants() {
+  // subscribable array of restaurants for observers
+  getRestaurants() {
     this.restaurantCollection = this.afs.collection('restaurants');
 
-    this.restaurants = this.restaurantCollection.snapshotChanges().map(changes => {
+    return this.restaurants = this.restaurantCollection.snapshotChanges().map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data() as Restaurant;
         data.id = a.payload.doc.id;
@@ -28,9 +34,21 @@ export class RestaurantService {
       });
     });
   }
-  // subscribable array of restaurants for observers
-  getRestaurants() {
-    return this.restaurants;
+
+  setFilterCriteria(restaurantID: string, partySize: string, date: string, time: string) {
+    this.restaurantID = restaurantID;
+    this.partySize = partySize;
+    this.date = date;
+    this.time = time;
+  }
+
+  getFilterCriteria() {
+    return {
+      restaurantID: this.restaurantID,
+      partySize: this.partySize,
+      date: this.date,
+      time: this.time
+    };
   }
 
   // get a restaurant document by its ID from the firebase restaurant collection

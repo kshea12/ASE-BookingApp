@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RestaurantComponent } from './restaurant.component';
-import { RestaurantService } from './restaurant.service';
 import { TableSelectorComponent } from './table-selector/table-selector.component';
 import { SearchRestaurantComponent } from './search-restaurant/search-restaurant.component';
+
+import { RestaurantService } from './restaurant.service';
+import { TableService } from '@app/restaurant/table.service';
+
 import { SharedModule } from '@app/shared';
-import { ReservationModule } from '@app/reservation/reservation.module';
 import { KonvaModule } from 'ng2-konva';
 import { RestaurantRoutingModule } from '@app/restaurant/restaurant-routing.module';
 
@@ -12,7 +14,6 @@ import { RestaurantRoutingModule } from '@app/restaurant/restaurant-routing.modu
   imports: [
     SharedModule,
     RestaurantRoutingModule,
-    ReservationModule,
     KonvaModule
   ],
   declarations: [
@@ -20,6 +21,6 @@ import { RestaurantRoutingModule } from '@app/restaurant/restaurant-routing.modu
     SearchRestaurantComponent,
     TableSelectorComponent,
   ],
-  providers: [RestaurantService]
+  providers: [RestaurantService, TableService]
 })
 export class RestaurantModule { }

@@ -12,7 +12,7 @@
         <div class="col-md-12" [ngClass]="animateOnRouteEnter">
 
           <mat-card>
-            <form class="row" [formGroup]="reactiveForm" (submit)="findTable()">
+            <form class="row" [formGroup]="reactiveForm" (ngSubmit)="findTable(reactiveForm.value)">
               <mat-form-field class="col-md-2 icon-form-field">
                 <mat-select placeholder="Party Size" formControlName="partySize">
                   <mat-option *ngFor="let size of partySizes" [value]="size.value">{{size.label}}</mat-option>
@@ -31,10 +31,16 @@
                 </mat-select>
               </mat-form-field>
 
+              <!--<mat-form-field class="col-md-4 icon-form-field">-->
+                <!--<input matInput placeholder="Location, Restaurant, or Cuisine">-->
+              <!--</mat-form-field>-->
               <mat-form-field class="col-md-4 icon-form-field">
-                <input matInput placeholder="Location, Restaurant, or Cuisine">
+                <mat-select placeholder="Select a Restaurant" formControlName="restaurant">
+                  <mat-option *ngFor="let restaurant of restaurants" [value]="restaurant.id">{{restaurant.name}}</mat-option>
+                </mat-select>
               </mat-form-field>
-              <button mat-raised-button type="submit" color="warn" class="col-md-2">Find a Table</button>
+
+              <button mat-raised-button type="submit" color="warn" class="col-md-2" [disabled]="!reactiveForm.valid">Find a Table</button>
             </form>
           </mat-card>
 

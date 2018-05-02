@@ -1,31 +1,53 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-// import { ReservationService } from '../../services/reservation.service';
 import { Reservation } from '../models/Reservation';
 import { ReservationService } from '@app/reservation/reservation.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-reservation',
   templateUrl: './reservation.component.html',
-  styleUrls: ['./reservation.component.css'],
+  styleUrls: ['./reservation.component.scss']
 })
 export class ReservationComponent implements OnInit {
 
   newReservation: Reservation;
   reservations: Reservation[];
 
-  constructor(
-    private reservationService: ReservationService,
-    private route: ActivatedRoute,
-    private location: Location) {
-    this.reservationService.getReservations().subscribe(reservations => {
-      console.log(reservations);
-      this.reservations = reservations;
-    });
+  reactiveForm: FormGroup;
+  selectedDate: string;
+  selectedTime: string;
+  selectedPartySize: string;
+  selectedRestaurant: string;
+  selectedTableNumber: string;
+
+
+  constructor(private fb: FormBuilder,
+              private reservationService: ReservationService,
+              private route: ActivatedRoute,
+              private location: Location) {
+    const details = this.reservationService.getReservationDetails();
+    const date = new Date();
+    const index = details.date.toString().indexOf(date.getFullYear().toString()) + 4;
+    this.selectedDate = details.date.toString().slice(0, index);
+    this.selectedTime = details.time;
+    this.selectedPartySize = details.partySize;
+    this.selectedRestaurant = details.restaurantID;
+    this.selectedTableNumber = details.tableNumber;
   }
 
   ngOnInit() {
+    this.buildForm();
+  }
+
+  buildForm() {
+    this.reactiveForm = this.fb.group({
+      'date': [this.selectedDate, Validators.required],
+      'time': [this.selectedTime, Validators.required],
+      'partySize': [this.selectedPartySize, Validators.required],
+      'tableNumber': [this.selectedRestaurant, Validators.required]
+    });
   }
 
   goBack() {
