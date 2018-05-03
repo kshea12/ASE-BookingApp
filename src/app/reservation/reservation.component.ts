@@ -24,9 +24,9 @@ export class ReservationComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-              private reservationService: ReservationService,
-              private route: ActivatedRoute,
-              private location: Location) {
+    private reservationService: ReservationService,
+    private route: ActivatedRoute,
+    private location: Location) {
     const details = this.reservationService.getReservationDetails();
     const date = new Date();
     const index = details.date.toString().indexOf(date.getFullYear().toString()) + 4;
@@ -82,27 +82,17 @@ export class ReservationComponent implements OnInit {
 
     this.reservations = this.reservations.filter(reservation =>
       reservation.time >= requestedTime).filter(reservation =>
-      reservation.time < anHourAfterRequestedTime.toString());
+        reservation.time < anHourAfterRequestedTime.toString());
   }
 
   ngOnSubmit() {
-    console.log('ngOnSubmit');
-
     if (this.reactiveForm.valid) {
-      console.log('is valid');
-
-      this.newReservation = {
-        date: this.selectedDate,
-        partySize: this.selectedPartySize,
-        tableNumber: this.selectedTableNumber,
-        time: this.selectedTime
-      };
+      this.newReservation = this.reactiveForm.value;
+      this.addReservation(this.newReservation);
+      this.newReservation = new Reservation();
 
     }
 
-    this.addReservation(this.newReservation);
-
-    this.newReservation =  new Reservation();
   }
 
 }
