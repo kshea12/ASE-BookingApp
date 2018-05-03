@@ -8,7 +8,7 @@
     <div class="col-md-7" [ngClass]="animateOnRouteEnter">
       <mat-card>
         <mat-card-subtitle>Confirm the information below is correct before booking:</mat-card-subtitle>
-        <form [formGroup]="reactiveForm">
+        <form [formGroup]="reactiveForm"  (ngSubmit)="ngOnSubmit()" >
           <div class="row">
             <mat-form-field class="col-md-6">
               <input matInput placeholder="Date" formControlName="date">

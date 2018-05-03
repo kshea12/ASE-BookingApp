@@ -76,7 +76,7 @@ export class ReservationService {
 
   // add a reservation document into thte firebase reservation collection for a restaurant
   addReservation(reservation: Reservation) {
-    // this.afs.collection('restaurants').doc(restaurantName).collection('reservations').add(reservation);
+    console.log('entered addReservation in  reservation service');
     this.reservationCollection.add(reservation);
   }
 

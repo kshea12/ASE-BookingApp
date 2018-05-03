@@ -81,6 +81,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private restaurantService: RestaurantService,
+              private reservationService: ReservationService,
               private router: Router) {}
 
   ngOnInit() {
@@ -108,6 +109,7 @@ export class HomeComponent implements OnInit {
     console.log(criteria.time);
     console.log(criteria.restaurant);
     this.restaurantService.setFilterCriteria(criteria.restaurant, criteria.partySize, criteria.date, criteria.time);
+    this.reservationService.retrieveReservationsForRestaurant(criteria.restaurant);
     this.router.navigate(['restaurant']);
   }
 

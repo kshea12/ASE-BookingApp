@@ -85,4 +85,24 @@ export class ReservationComponent implements OnInit {
       reservation.time < anHourAfterRequestedTime.toString());
   }
 
+  ngOnSubmit() {
+    console.log('ngOnSubmit');
+
+    if (this.reactiveForm.valid) {
+      console.log('is valid');
+
+      this.newReservation = {
+        date: this.selectedDate,
+        partySize: this.selectedPartySize,
+        tableNumber: this.selectedTableNumber,
+        time: this.selectedTime
+      };
+
+    }
+
+    this.addReservation(this.newReservation);
+
+    this.newReservation =  new Reservation();
+  }
+
 }
