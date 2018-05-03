@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Observable } from 'rxjs/Observable';
 import { ReservationService } from './reservation.service';
 import { Reservation } from '../models/Reservation';
 import 'rxjs/add/operator/catch';
@@ -7,7 +8,8 @@ import 'rxjs/add/operator/catch';
 @Component({
   selector: 'reservation',
   templateUrl: './reservation.component.html',
-  styleUrls: ['./reservation.component.css']
+  styleUrls: ['./reservation.component.css'],
+  providers: [ReservationService]
 })
 export class ReservationComponent implements OnInit {
 
@@ -15,24 +17,27 @@ export class ReservationComponent implements OnInit {
   reservationsCollection: AngularFirestoreCollection<Reservation>;
   reservations: Reservation[];
 
-  constructor(private reservationService: ReservationService) {
+  constructor(
+    private reservationService: ReservationService) {
     this.reservationService.getReservations().subscribe(reservations => {
       console.log(reservations);
       this.reservations = reservations;
-    });
+    })
   }
 
   ngOnInit() {
+  
     console.log('ngOninit reservation component');
-    this.reservationService.getReservations().subscribe((reservations: Reservation[]) => this.reservations = reservations);
+    // this.reservationService.getReservations()
+    //   .subscribe((reservations: Reservation[]) => this.reservations = reservations);
 
     // for testing purposes
     this.newReservation = {
       date: '04/29/18',
       partySize: 4,
       tableNumber: 2,
-      time: '1100'
-    };
+      time: '1100 '
+    }
   }
 
   addReservation(reservation: Reservation) {
@@ -54,16 +59,15 @@ export class ReservationComponent implements OnInit {
 
   filterReservationByDate(requestedDate: string) {
     this.reservations = this.reservations.filter(reservation =>
-      reservation.date === requestedDate);
+      reservation.date == requestedDate);
   }
 
   // filter out from time requested to an hour later
   filterReservationsByTime(requestedTime: string) {
-    const anHourAfterRequestedTime = parseInt(requestedTime, 10) + 100;
+    var anHourAfterRequestedTime = (parseInt(requestedTime) + 100);
 
     this.reservations = this.reservations.filter(reservation =>
       reservation.time >= requestedTime).filter(reservation =>
-      reservation.time < anHourAfterRequestedTime.toString());
-
+        reservation.time < anHourAfterRequestedTime.toString());
   }
 }

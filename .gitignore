@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/dist-server
 /tmp
 /out-tsc
 
@@ -34,8 +35,8 @@ testem.log
 /typings
 
 # e2e
-/e2e/src/*.js
-/e2e/src/*.map
+/e2e/*.js
+/e2e/*.map
 
 # System Files
 .DS_Store
