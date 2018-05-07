@@ -5,22 +5,23 @@ import { TableService } from '@app/restaurant/table.service';
 import { Table } from '@app/models/Table';
 import { Reservation } from '@app/models/Reservation';
 import { RestaurantService } from '@app/restaurant/restaurant.service';
+import { Restaurant } from '@app/models/Restaurant';
 
 
 @Component({
   selector: 'restaurant',
   templateUrl: './restaurant.component.html',
-  styleUrls: ['./restaurant.component.css']
+  styleUrls: ['./restaurant.component.scss']
 })
 export class RestaurantComponent implements OnInit {
 
-  restaurantID: string;
+  restaurant: Restaurant;
   partySize: string;
   date: string;
   time: string;
 
-  tables: Table[];
-  reservations: Reservation[];
+  tables: Table[] = [];
+  reservations: Reservation[] = [];
 
   constructor(private tableService: TableService,
               private restaurantService: RestaurantService,
@@ -28,7 +29,7 @@ export class RestaurantComponent implements OnInit {
               private router: Router) {
 
     const criteria = this.restaurantService.getFilterCriteria();
-    this.restaurantID = criteria.restaurantID;
+    this.restaurant = criteria.restaurant;
     this.partySize = criteria.partySize;
     this.date = criteria.date;
     this.time = criteria.time;
@@ -36,24 +37,24 @@ export class RestaurantComponent implements OnInit {
 
 
   ngOnInit() {
-    this.tableService.getTables(this.restaurantID).subscribe(tables => {
+    this.tableService.getTables(this.restaurant.id).subscribe(tables => {
       this.tables = tables;
       this.filterTablesBySize();
     });
 
-    this.reservationService.getReservations(this.restaurantID).subscribe(reservations => {
+    this.reservationService.getReservations(this.restaurant.id).subscribe(reservations => {
       this.reservations = reservations;
       this.filterReservations();
       this.reservations.forEach(reservation => {
-        this.tables = this.tables.filter(table => table.id !== reservation.tableNumber);
+        this.tables = this.tables.filter(table => table.tableNumber !== reservation.tableNumber);
       });
+      this.tables = this.tables.sort((a: Table, b: Table) => parseInt(a.size, 10) - parseInt(b.size, 10));
     });
-
   }
 
   filterTablesBySize() {
-    this.tables = this.tables.filter(table =>
-      table.size >= this.partySize);
+    this.tables = this.tables.filter(table => parseInt(table.size, 10) >=  parseInt(this.partySize, 10));
+    this.tables = this.tables.filter(table => parseInt(table.size, 10) <= (parseInt(this.partySize, 10) + 2));
   }
 
   filterReservations() {
@@ -68,15 +69,19 @@ export class RestaurantComponent implements OnInit {
 
   // filter out from time requested to an hour later
   filterReservationsByTime(requestedTime: string) {
-    const anHourAfterRequestedTime = (parseInt((requestedTime + 100), 10));
-
-    this.reservations = this.reservations.filter(reservation =>
-      reservation.time >= requestedTime).filter(reservation =>
-      reservation.time < anHourAfterRequestedTime.toString());
+    this.reservations = this.reservations.filter(reservation => reservation.time === requestedTime);
   }
 
+  // filterReservationsByTime(requestedTime: string) {
+  //   const anHourAfterRequestedTime = (parseInt((requestedTime + 100), 10));
+  //
+  //   this.reservations = this.reservations.filter(reservation =>
+  //     reservation.time >= requestedTime).filter(reservation =>
+  //     reservation.time < anHourAfterRequestedTime.toString());
+  // }
+
   reserveTable(table: Table) {
-    this.reservationService.setReservationDetails(this.restaurantID, this.partySize, this.date, this.time, table.id);
+    this.reservationService.setReservationDetails(this.restaurant, this.partySize, this.date, this.time, table);
     this.router.navigate(['reservation']);
   }
 }

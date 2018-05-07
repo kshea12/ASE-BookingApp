@@ -1,5 +1,6 @@
 export class Table {
-    id?: string;
-    size?: string;
-    type?: string;
+  id?: string;
+  size?: string;
+  tableNumber?: string;
+  type?: string;
 }

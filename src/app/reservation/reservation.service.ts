@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { Reservation } from '../models/Reservation';
+import { Restaurant } from '@app/models/Restaurant';
+import { Table } from '@app/models/Table';
 
 @Injectable()
 export class ReservationService {
@@ -10,11 +12,11 @@ export class ReservationService {
   reservations: Observable<Reservation[]>;
   reservationDoc: AngularFirestoreDocument<Reservation>;
 
-  restaurantID: string;
+  restaurant: Restaurant;
   partySize: string;
   date: string;
   time: string;
-  tableNumber: string;
+  table: Table;
 
   constructor(private afs: AngularFirestore) {
     console.log('New instance of Reservationservice created');
@@ -39,7 +41,6 @@ export class ReservationService {
         return data;
       });
     });
-
     console.log('exiting');
   }
 
@@ -56,27 +57,27 @@ export class ReservationService {
     });
   }
 
-  setReservationDetails(restaurantID: string, partySize: string, date: string, time: string, tableNumber: string) {
-    this.restaurantID = restaurantID;
+  setReservationDetails(restaurant: Restaurant, partySize: string, date: string, time: string, table: Table) {
+    this.restaurant = restaurant;
     this.partySize = partySize;
     this.date = date;
     this.time = time;
-    this.tableNumber = tableNumber;
+    this.table = table;
   }
 
   getReservationDetails() {
     return {
-      restaurantID: this.restaurantID,
+      restaurant: this.restaurant,
       partySize: this.partySize,
       date: this.date,
       time: this.time,
-      tableNumber: this.tableNumber
+      table: this.table
     };
   }
 
   // add a reservation document into thte firebase reservation collection for a restaurant
   addReservation(reservation: Reservation) {
-    // this.afs.collection('restaurants').doc(restaurantName).collection('reservations').add(reservation);
+    console.log('entered addReservation in  reservation service');
     this.reservationCollection.add(reservation);
   }
 

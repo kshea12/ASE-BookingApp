@@ -1,48 +1,40 @@
-<div *ngIf="tables?.length > 0; then allTables else noTables" [ngClass]="animateOnRouteEnter">
-  <!-- template will replace this div -->
-</div>
-
-<ng-template #allTables>
-  <div class="container">
+  <div class="container" [ngClass]="animateOnRouteEnter" [hidden]="!(tables?.length > 0)">
     <div class="row">
       <div class="col-md-12">
         <h1 class="main-heading col-md-4">Available Tables</h1>
       </div>
     </div>
     <div class="row ">
-      <div class="col-md-5" [ngClass]="animateOnRouteEnter">
+      <div class="col-md-5">
         <mat-card>
           <table class="tables">
             <tr>
-              <th>Size</th>
+              <th>Table</th>
               <th>Type</th>
+              <th>Size</th>
             </tr>
             <tr *ngFor="let table of tables" (click)="reserveTable(table)">
-              <!--<tr *ngFor="let table of tables" [class.selected]="track.entity == selectedTrack" (click)="clickTrack(track.entity)">-->
+              <td>{{table.tableNumber}}</td>
+              <td>{{table.type.toUpperCase()}}</td>
               <td>{{table.size}}</td>
-              <td>{{table.type}}</td>
             </tr>
           </table>
         </mat-card>
       </div>
     </div>
   </div>
-</ng-template>
 
-<ng-template #noTables>
-
-  <div class="container">
+  <div class="container" [ngClass]="animateOnRouteEnter" [hidden]="tables?.length > 0">
     <div class="row">
       <div class="col-md-12">
         <h1 class="main-heading col-md-4">No Available Tables</h1>
       </div>
     </div>
     <div class="row ">
-      <div class="col-md-5" [ngClass]="animateOnRouteEnter">
+      <div class="col-md-5">
         <mat-card>
           <h5>Please try your search again</h5>
         </mat-card>
       </div>
     </div>
   </div>
-</ng-template>

@@ -10,7 +10,7 @@ export class RestaurantService {
   restaurantDoc: AngularFirestoreDocument<Restaurant>;
   restaurants: Observable<Restaurant[]>;
 
-  restaurantID: string;
+  restaurant: Restaurant;
   partySize: string;
   date: string;
   time: string;
@@ -35,8 +35,8 @@ export class RestaurantService {
     });
   }
 
-  setFilterCriteria(restaurantID: string, partySize: string, date: string, time: string) {
-    this.restaurantID = restaurantID;
+  setFilterCriteria(restaurant: Restaurant, partySize: string, date: string, time: string) {
+    this.restaurant = restaurant;
     this.partySize = partySize;
     this.date = date;
     this.time = time;
@@ -44,7 +44,7 @@ export class RestaurantService {
 
   getFilterCriteria() {
     return {
-      restaurantID: this.restaurantID,
+      restaurant: this.restaurant,
       partySize: this.partySize,
       date: this.date,
       time: this.time
