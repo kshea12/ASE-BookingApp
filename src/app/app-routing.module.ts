@@ -16,10 +16,10 @@ const routes: Routes = [
       title: 'Settings'
     }
   },
-  {
-    path: 'examples',
-    loadChildren: 'app/examples/examples.module#ExamplesModule'
-  },
+  // {
+  //   path: 'examples',
+  //   loadChildren: 'app/examples/examples.module#ExamplesModule'
+  // },
   {
     path: '**',
     redirectTo: 'home'
