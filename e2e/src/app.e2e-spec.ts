@@ -1,10 +1,10 @@
-import { AngularNgrxMaterialStarterPage } from './app.po';
+import { BookingAppPage } from './app.po';
 
 describe('Booking App', () => {
-  let page: AngularNgrxMaterialStarterPage;
+  let page: BookingAppPage;
 
   beforeEach(() => {
-    page = new AngularNgrxMaterialStarterPage();
+    page = new BookingAppPage();
   });
 
   it('should display message saying app works', () => {
